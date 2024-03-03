@@ -41,16 +41,23 @@ def p_centered(x,i):
     d = centered_differencing(f, i, 10e-8)
     return lagrange_interpolation(X,Y,i)+(x-i)*d
 
+def p_4points(x,i):
+    d = points_method(f, i, 10e-8)
+    print(d)
+    return lagrange_interpolation(X,Y,i)+(x-i)*d
+
 def main():
     estimate_forward = []
     estimate_backward = []
     estimate_centered = []
+    estimate_4points = []
     for i in X:
         for x in X:
             if x>i:
                 estimate_forward.append((x ,i, p_forward(x,i)))
                 estimate_backward.append((x ,i, p_backward(x,i)))
                 estimate_centered.append((x ,i, p_centered(x,i)))
+                estimate_4points.append((x,i,p_4points(x,i)))
 
     # Printing the results:
     print('Estimate_forward:')
@@ -65,6 +72,11 @@ def main():
 
     print('Estimate_centered:')
     for item in estimate_centered:
+       print('x = '+str(item[0])+', i = '+str(item[1])+', p(x)='+str(item[2]))
+    print('')
+
+    print('4_Points:')
+    for item in estimate_4points:
        print('x = '+str(item[0])+', i = '+str(item[1])+', p(x)='+str(item[2]))
     print('')
 

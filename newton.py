@@ -13,6 +13,10 @@ def centered_differencing(f, a, h):
     num = f(a+h)-f(a-h)
     return num/(2*h)
 
+def points_method(f, a, h):
+    num = f(a-2*h)-8*f(a-h)+8*f(a+h)-f(a+2*h)
+    return num/(12*h)
+
 def test_function(x):
     return math.exp(x)
 
